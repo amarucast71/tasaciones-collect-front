@@ -1,0 +1,31 @@
+[
+  {
+    "title": "Inicio",
+    "caption": "",
+    "icon": "home",
+    "link": "/",
+    "childs": []
+  },
+  {
+    "title": "Recolección",
+    "caption": "",
+    "icon": "pin_drop",
+    "link": "",
+    "childs": [
+      {
+        "title": "Mapa",
+        "caption": "",
+        "icon": "",
+        "link": "/collect/map",
+        "childs": []
+      },
+      {
+        "title": "Registros de Puntos",
+        "caption": "",
+        "icon": "",
+        "link": "/collect/puntos",
+        "childs": []
+      }
+    ]
+  }
+]

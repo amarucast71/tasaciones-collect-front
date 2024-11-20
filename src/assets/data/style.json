@@ -1,0 +1,111 @@
+{
+  "version": 8,
+  "id": "streets-v2",
+  "name": "Streets",
+  "sources": {
+    "googlehybrid": {
+      "type": "raster",
+      "tiles": [
+        "https://mt0.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}",
+        "https://mt1.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}",
+        "https://mt2.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}",
+        "https://mt3.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}"
+      ],
+      "maxzoom": 22
+    },
+    "puntos_src": {
+      "type": "vector",
+      "tiles": [
+        "http://127.0.0.1:8000/agroforestal/main/mvt/tiles/{z}/{x}/{y}.pbf"
+      ]
+    },
+    "parcelas_wms": {
+      "type": "raster",
+      "tiles": [
+        "https://idecor-ws.mapascordoba.gob.ar/geoserver/idecor/parcelas/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&width=256&height=256&layers=parcelas"
+      ],
+      "tileSize": 256,
+      "attribution": "IDECOR"
+    }
+  },
+  "layers": [
+    {
+      "id": "googlehybrid",
+      "type": "raster",
+      "source": "googlehybrid"
+    },
+    {
+      "id": "parcelas",
+      "type": "raster",
+      "source": "parcelas_wms",
+      "source-layer": "parcelas",
+      "paint": {},
+      "layout": {
+        "visibility": "visible"
+      }
+    },
+
+    {
+      "id": "puntos",
+      "type": "circle",
+      "source": "puntos_src",
+      "source-layer": "puntos",
+      "paint": {
+        "circle-color": [
+          "case",
+          [">", ["get", "relevamientos_campania"], 0],
+          "#00ffd9",
+          "#8F8F8F"
+        ],
+        "circle-radius": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          2,
+          14,
+          10,
+          22,
+          20
+        ],
+        "circle-stroke-color": [
+          "case",
+          [">", ["get", "relevamientos_campania"], 0],
+          "#424242",
+          "#555555"
+        ],
+        "circle-stroke-width": 1
+      }
+    },
+    {
+      "id": "puntos-labels",
+      "type": "symbol",
+      "source": "puntos_src",
+      "source-layer": "puntos",
+      "layout": {
+        "text-field": ["concat", "#", ["get", "id"], " ", ["get", "nombre"]],
+        "text-font": ["Open Sans", "Arial Unicode MS"],
+        "text-size": 12,
+        "text-offset": [0, 1.5]
+      },
+      "paint": {
+        "text-color": "#000000",
+        "text-halo-color": "#d8e5ed",
+        "text-halo-width": 2
+      }
+    }
+  ],
+  "metadata": {
+    "targets": {
+      "puntos": "Puntos",
+      "parcelas": "Parcelas",
+      "googlehybrid": "Google"
+    }
+  },
+  "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=8gDPdXQxuOfgbYeQJ5VT",
+  "sprite": "https://api.maptiler.com/maps/streets-v2/sprite",
+  "bearing": 0,
+  "pitch": 0,
+  "center": [-64.066829, -30.917918],
+  "zoom": 8
+}

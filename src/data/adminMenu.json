@@ -1,0 +1,52 @@
+[
+  {
+    "title": "Administración",
+    "caption": "",
+    "icon": "admin_panel_settings",
+    "link": "",
+    "childs": [
+      {
+        "title": "Campañas",
+        "caption": "",
+        "icon": "",
+        "link": "/admin/campanias/list",
+        "childs": []
+      },
+      {
+        "title": "Asuntos",
+        "caption": "",
+        "icon": "",
+        "link": "/admin/asuntos/list",
+        "childs": []
+      },
+      {
+        "title": "Instituciones",
+        "caption": "",
+        "icon": "",
+        "link": "/admin/instituciones/list",
+        "childs": []
+      },
+      {
+        "title": "Usuarios",
+        "caption": "",
+        "icon": "",
+        "link": "/admin/usuarios/list",
+        "childs": []
+      },
+      {
+        "title": "Informes",
+        "caption": "",
+        "icon": "",
+        "link": "/admin/reportes",
+        "childs": []
+      },
+      {
+        "title": "Descargas",
+        "caption": "",
+        "icon": "",
+        "link": "/admin/descargas",
+        "childs": []
+      }
+    ]
+  }
+]

@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  Agroforestal-fron:
+    build:
+      context: .
+      target: 'develop-stage'
+    env_file:
+      - .env
+    container_name: Agroforestal-Front
+    ports:
+      - 8064:80
+    restart: unless-stopped
+    volumes:
+    - '.:/app'
+    command: /bin/sh -c "quasar dev"

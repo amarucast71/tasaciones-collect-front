@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+
+  tasaciones-front:
+    image: registry.mapascordoba.gob.ar/tasaciones-front:${tag}
+    container_name: tasaciones-front
+    ports:
+    - 8052:80
+    restart: unless-stopped

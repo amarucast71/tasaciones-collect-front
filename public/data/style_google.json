@@ -1,0 +1,183 @@
+{
+  "version": 8,
+  "id": "streets-v2",
+  "name": "Streets",
+  "sources": {
+    "osm": {
+      "type": "raster",
+      "tiles": [
+        "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      ],
+      "tileSize": 256,
+      "maxzoom": 22
+    },
+    "googlemap": {
+      "type": "raster",
+      "tiles": [
+        "https://maps.googleapis.com/maps/vt?pb=!1m5!1m4!1i{z}!2i{x}!3i{y}!4i256!2m3!1e0!2sm!3i349018013!3m9!2sen-US!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0"
+      ],
+      "maxzoom": 22
+    },
+    "googlehybrid": {
+      "type": "raster",
+      "tiles": [
+        "https://mt0.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}",
+        "https://mt1.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}",
+        "https://mt2.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}",
+        "https://mt3.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}"
+      ],
+      "maxzoom": 22
+    },
+    "red_vial_nacional_wms": {
+      "type": "raster",
+      "tiles": [
+        "https://idecor-ws.mapascordoba.gob.ar/geoserver/idecor/red_vial_nacional/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&width=256&height=256&layers=red_vial_nacional&style=sty_red_nacional_map_productivo"
+      ],
+      "tileSize": 256,
+      "attribution": "IDECOR"
+    },
+    "red_vial_provincial_wms": {
+      "type": "raster",
+      "tiles": [
+        "https://idecor-ws.mapascordoba.gob.ar/geoserver/idecor/red_vial_provincial/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&width=256&height=256&layers=red_vial_provincial&style=sty_red_provincial_map_productivo"
+      ],
+      "tileSize": 256,
+      "attribution": "IDECOR"
+    },
+    "puntos_src": {
+      "type": "vector",
+      "tiles": [
+        "http://127.0.0.1:8000/main/mvt/tiles/{z}/{x}/{y}.pbf"
+      ]
+    }
+  },
+  "layers": [
+    {
+      "id": "googlehybrid",
+      "type": "raster",
+      "source": "googlehybrid"
+    },
+    {
+      "id": "googlemap",
+      "type": "raster",
+      "source": "googlemap",
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    {
+      "id": "osm",
+      "type": "raster",
+      "source": "osm",
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    {
+      "id": "red_vial_nacional",
+      "type": "raster",
+      "source": "red_vial_nacional_wms",
+      "source-layer": "red_vial_nacional",
+      "paint": {}
+    },
+    {
+      "id": "red_vial_provincial",
+      "type": "raster",
+      "source": "red_vial_provincial_wms",
+      "source-layer": "red_vial_provincial",
+      "paint": {}
+    },
+    {
+      "id": "puntos",
+      "type": "circle",
+      "source": "puntos_src",
+      "source-layer": "puntos",
+      "paint": {
+        "circle-color": [
+          "case",
+          [
+            ">",
+            [
+              "get",
+              "relevamientos_campania"
+            ],
+            0
+          ],
+          "#00FF00",
+          "#8F8F8F"
+        ],
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          0,
+          2,
+          14,
+          10,
+          22,
+          20
+        ],
+        "circle-stroke-color": "#000000",
+        "circle-stroke-width": 1
+      }
+    },
+    {
+      "id": "puntos-labels",
+      "type": "symbol",
+      "source": "puntos_src",
+      "source-layer": "puntos",
+      "layout": {
+        "text-field": [
+          "concat",
+          "#",
+          [
+            "get",
+            "id"
+          ],
+          " ",
+          [
+            "get",
+            "nombre"
+          ]
+        ],
+        "text-font": [
+          "Open Sans",
+          "Arial Unicode MS"
+        ],
+        "text-size": 12,
+        "text-offset": [
+          0,
+          1.5
+        ]
+      },
+      "paint": {
+        "text-color": "#000000",
+        "text-halo-color": "#d9ebef",
+        "text-halo-width": 2
+      }
+    }
+  ],
+  "metadata": {
+    "targets": {
+      "puntos": "Puntos",
+      "red_vial_nacional": "Red Nacional",
+      "red_vial_provincial": "Red Provincial",
+      "osm": "OpenStretMap",
+      "googlemap": "Google Map",
+      "googlehybrid": "Google Hybrid"
+    }
+  },
+  "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=8gDPdXQxuOfgbYeQJ5VT",
+  "sprite": "https://api.maptiler.com/maps/streets-v2/sprite",
+  "bearing": 0,
+  "pitch": 0,
+  "center": [
+    -63.05504373032592,
+    -32.57670679159974
+  ],
+  "zoom": 8
+}
